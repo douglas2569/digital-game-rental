@@ -8,7 +8,7 @@ class UserDAO extends DataBase{
     }
 
     function show(){
-        $resulset = $this->retrieve('usuarios'); 
+        $resulset = $this->retrieve('users'); 
         $dataList = array();
 
         if (is_null($resulset)) return $dataList;        
