@@ -1,5 +1,6 @@
 <?php
-require_once '../core/DataBase.php';
+require_once '../src/core/DataBase.php';
+require_once '../src/user/User.php';
 
 class UserDAO extends DataBase{
 
@@ -14,12 +15,10 @@ class UserDAO extends DataBase{
         if (is_null($resulset)) return $dataList;        
 
         foreach($resulset as $row){
-            array_push($dataList, $row);
+            // echo $row['id']." ".$row['username']." ".$row['name']." ".$row['type']."<br>";                
+            array_push($dataList, new User($row['id'], $row['username'], $row['name'], $row['type']));       
         }
 
         return $dataList;
     }
 }
-
-$user = new UserDAO();
-print_r($user->show());
