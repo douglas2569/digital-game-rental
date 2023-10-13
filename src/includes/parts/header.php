@@ -2,19 +2,28 @@
 
 <header>
     <div class="container">
+        
         <?php
             if(empty($_SESSION['hash'])){
-                echo  "<a href='user-login.php'>Entrar</a>"; 
-            } else {
-                echo "Olá, <strong>" . $_SESSION['name'] . "</strong>  | ";
-                echo "<a href='user-edit.php'> Meus Dados</a> | ";
+        ?>        
+                <a href='http://localhost/digital-game-rental/src/user/view/login.php'>Entrar</a>"; 
                 
-                if($_SESSION['type'] == 'admin'){
-                    echo "<a href='user-new.php'>Novo utilizador</a> | ";
-                    echo "Novo jogo | ";
+        <?php
+            } else {
+        ?>        
+                <span>Olá, <strong> <?= $_SESSION['name']?>  </strong>  |
+                <a href='http://localhost/digital-game-rental/src/user/view/edit.php'> Meus Dados</a> | </span>
+        <?php        
+                if($_SESSION['type'] == 'admin'){                    
+        ?>        
+                <a href='http://localhost/digital-game-rental/src/user/view/register.php'>Novo utilizador</a> |
+                <a href='http://localhost/digital-game-rental/src/user/view/register.php'>Novo jogo</a>                   
+                
+                
+        <?php
                 }
-                echo "<a href='/digital-game-rental/src/user/logout.php' >Sair</a>";
             } 
         ?>
+            <a href='/digital-game-rental/src/user/logout.php'>Sair</a>
     </div>
 </header>

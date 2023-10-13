@@ -36,8 +36,8 @@ class DataBase extends Connection{
 
     }
     
-    function insert($sql){
-
+    function insert($table, $values=array()){
+       
     }
 
     public function edit($sql){

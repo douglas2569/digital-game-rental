@@ -1,13 +1,13 @@
 <?php
-
 require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/core/DataBase.php';
-// require_once  dirname(__FILE__).'../../core/DataBase.php';
+
 require_once 'User.php';
 
 class UserDAO extends DataBase{
 
     function __construct(){
         parent::__construct();
+        $this->conn = $this->conn();
     }
 
     function show(){
@@ -35,10 +35,26 @@ class UserDAO extends DataBase{
             if(!password_verify($password, $dataList[0]->getPassword())){
                 $dataList = array();                
             }
-        }         
+        }        
         
         
         return $dataList;
+    }
+
+    function store($table, $values=array()){
+        $status  = '';            
+        try {                                                   
+            $statement = $this->conn->prepare("INSERT INTO $table (username, name, password, type, hash) 
+            values(?, ?, ?, ?, ?)");                                                        
+            $statement->bind_param('sssss', ...$values);            
+            $statement->execute();                  
+            $status = true;
+
+        }catch (mysqli_sql_exception $e) {
+            echo 'Dados Invalidos'."</br>";            
+        }
+        
+        return $status; 
     }
 
 

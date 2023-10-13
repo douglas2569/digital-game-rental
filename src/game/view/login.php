@@ -1,4 +1,6 @@
-<?php 
+<?php
+    // include_once '../User.php';
+    // include_once '../UserDAO.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/config/config.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/User.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
@@ -22,11 +24,10 @@
             $_SESSION['hash'] = $userList[0]->getHash();
             $_SESSION['name'] = $userList[0]->getName();
             $_SESSION['type'] = $userList[0]->getType();
-            $_SESSION['username'] = $userList[0]->getUserName();
             
             require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/index.php'; 
                                    
-            header("Location: digital-game-rental/index.php"); exit(); 
+            header("Location: http://localhost/digital-game-rental/index.php"); exit(); 
         }
         
     }else{
