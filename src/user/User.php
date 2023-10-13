@@ -1,5 +1,6 @@
 <?php
-require_once '../src/user/UserDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
+// require_once '../UserDAO.php';
 
 class User{
     private $id;
@@ -7,14 +8,15 @@ class User{
     private $name;
     private $password;
     private $type;
-    function __construct($id, $userName, $name, $type='', $password=''){
+    private $hash;
+    function __construct($id, $userName, $name, $type='', $password='', $hash=''){
         $this->setId($id);
         $this->setUserName($userName);
         $this->setName($name);
         $this->setPassword($password);
         $this->setType($type);
-    }
-       
+        $this->setHash($hash);
+    }       
 
     function getId(){
         return $this->id;
@@ -47,9 +49,14 @@ class User{
     }
     
     function setPassword($password){
-        $password = trim($password); 
+        // $password = trim($password); 
 
         $this->password = $password;        
+    }
+
+    function getPassword(){         
+
+        return $this->password;
     }
 
     function getType(){
@@ -61,6 +68,18 @@ class User{
 
         $this->type = $type;        
     }
+
+    function setHash($hash){
+        // $password = trim($password); 
+
+        $this->hash = $hash;        
+    }
+
+    function getHash(){         
+
+        return $this->hash;
+    }
+
 
     function toString(){
 

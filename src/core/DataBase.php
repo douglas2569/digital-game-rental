@@ -9,14 +9,21 @@ class DataBase extends Connection{
     }
 
 
-    function retrieve($table, $column=null, $value=null){
+    function retrieve($table, $column=array(), $value=array(), $operator='AND'){
         $statement = null;
+        
         try {
-            if(is_null($column)){
+            if(count($column) <= 0){
                 $statement = $this->conn->prepare("SELECT * FROM $table");
             }else{
-                $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column = ?");
-                $statement->bind_param('s', $value);
+                if(count($column) > 1){
+                    $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column[0] = ? $operator $column[1] = ?");
+                    $statement->bind_param('ss', $value[0], $value[1]);
+                    
+                }else{                                        
+                    $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column[0] = ?");
+                    $statement->bind_param('s', $value[0]);
+                }
             }
 
             $statement->execute();
