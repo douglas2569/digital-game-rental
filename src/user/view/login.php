@@ -24,13 +24,10 @@
             $_SESSION['type'] = $userList[0]->getType();
             $_SESSION['username'] = $userList[0]->getUserName();
             
-            require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/index.php'; 
+            // require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/index.php'; 
                                    
-            header("Location: digital-game-rental/index.php"); exit(); 
+            header("Location: http://localhost/digital-game-rental/index.php"); exit(); 
         }
-        
-    }else{
-        echo 'Preencha os campos corretamente<br>';
         
     }
 
