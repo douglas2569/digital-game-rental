@@ -10,9 +10,15 @@ class UserDAO extends DataBase{
         $this->conn = $this->conn();
     }
 
-    function show(){
-        $resulset = $this->retrieve('users'); 
+    function show($parameter=null){
         $dataList = array();
+
+        if(!is_null($parameter)){
+            $resulset = $this->retrieve('users', array('hash'), array($parameter)); 
+
+        }else{
+            $resulset = $this->retrieve('users');         
+        }
 
         if (is_null($resulset)) return $dataList;        
 
@@ -55,6 +61,41 @@ class UserDAO extends DataBase{
         }
         
         return $status; 
+    }
+
+    function update($table, $values=array()){
+        $status  = ''; 
+        
+        if($values[2] == ''){           
+            try {                  
+                $values[2] = $values[3];
+                array_pop($values);  
+                print_r($values);              
+                $statement = $this->conn->prepare("UPDATE $table SET username = ?, name = ? WHERE hash = ?");
+                $statement->bind_param('sss', ...$values);            
+                $statement->execute();                  
+                $status = true;
+    
+            }catch (mysqli_sql_exception $e) {
+                echo 'Dados Invalidos'."</br>";            
+            }
+
+        }else{         
+            
+            try {                                                   
+                $statement = $this->conn->prepare("UPDATE $table SET username = ?, name = ?, password = ? WHERE hash = ?");
+                $statement->bind_param('ssss', ...$values);            
+                $statement->execute();                  
+                $status = true;
+    
+            }catch (mysqli_sql_exception $e) {
+                echo 'Dados Invalidos'."</br>";            
+            }
+
+        }          
+        
+        
+        return $status;
     }
 
 

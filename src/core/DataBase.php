@@ -13,17 +13,22 @@ class DataBase extends Connection{
         $statement = null;
         
         try {
-            if(count($column) <= 0){
-                $statement = $this->conn->prepare("SELECT * FROM $table");
-            }else{
-                if(count($column) > 1){
-                    $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column[0] = ? $operator $column[1] = ?");
-                    $statement->bind_param('ss', $value[0], $value[1]);
-                    
-                }else{                                        
+
+            switch(count($column)){                                
+                case 1:
                     $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column[0] = ?");
                     $statement->bind_param('s', $value[0]);
-                }
+                break;
+
+                case 2:
+                    $statement = $this->conn->prepare("SELECT * FROM $table WHERE $column[0] = ? $operator $column[1] = ?");
+                    $statement->bind_param('ss', $value[0], $value[1]);
+                break;
+
+                default:
+                    $statement = $this->conn->prepare("SELECT * FROM $table");
+                break;
+
             }
 
             $statement->execute();

@@ -30,19 +30,23 @@ if(!isset($_SESSION['hash']) && empty($_SESSION['hash'])){
 
     <main>
         <div class="container">            
-            <form method="get" id="search-form">
-                Ordenar: 
-                <a href="index.php?order=name&keyword=<?php echo $keyword;?>">Nome</a> | 
-                <a href="index.php?order=producer&keyword=<?php echo $keyword;?>">Produtora</a> | 
-                <a href="index.php?order=high-rating<?php echo $keyword;?>">Nota Alta</a> |
-                <a href="index.php?order=low-rating<?php echo $keyword;?>">Nota Baixa</a> |
-                <a href="index.php">Mostrar Todos</a> |
-                Buscar: <input type="text" name="search" size="10" maxlength="40">
-                <input type="submit" value="Pesquisar">
-            </form>     
-        </div>
-
-        <table class="list">
+            <form method="get" class="form search-form">
+                <span>
+                   <strong> Ordenar: </strong>
+                    <a href="index.php?order=name&keyword=<?php echo $keyword;?>">Nome</a> | 
+                    <a href="index.php?order=producer&keyword=<?php echo $keyword;?>">Produtora</a> | 
+                    <a href="index.php?order=high-rating<?php echo $keyword;?>">Nota Alta</a> |
+                    <a href="index.php?order=low-rating<?php echo $keyword;?>">Nota Baixa</a> |
+                    <a href="index.php">Mostrar Todos</a> |
+                </span>
+                <span>
+                    <label class="label" for="search">Buscar </label>
+                    <input  class="input search-input" type="text" name="search" id="search" size="25" maxlength="40">
+                    <button  type="submit" class="btn search-btn">Pesquisar</button>                
+                </span>
+            </form>
+            
+            <table class="table list">
             <?php
                 $gameDAO = new GameDAO();
                 $gameList = $gameDAO->showJoin($keyword, $order);
@@ -57,23 +61,26 @@ if(!isset($_SESSION['hash']) && empty($_SESSION['hash'])){
                         
                 ?>
                     <tr>
-                        <td><img src="<?= 'http://localhost/digital-game-rental/'.$game->getCover() ?>" class='sm-img'/></td>
                         <td>
-                            <a href='details.php?id=<?= $game->getId() ?>'><?= $game->getName() ?></a>
-                            (<?= $game->getGenderFK() ?>)                    
-                            (<?= $game->getProducerFK() ?>)                    
+                            <img class ='img sm-img' src="<?= 'http://localhost/digital-game-rental/'.$game->getCover() ?>" />
+                            <div>
+                                <a href='src/game/view/details.php?id=<?= $game->getId() ?>'><?= $game->getName() ?></a>
+                                <span>(<?= $game->getGenderFK() ?>)</span>                    
+                                <span>(<?= $game->getProducerFK() ?>) </span>
+                            </div>
+                            
                         </td>
                         <td>
                             <?php
                                 if($_SESSION['type'] == 'admin'){
                             ?>
-                                <span class='material-symbols-outlined'>add_circle</span>
-                                <span class='material-symbols-outlined'>edit</span>
-                                <span class='material-symbols-outlined'>delete</span>
+                                <span title='essa funcionalidade não faz parte do projeto do modulo 2'  class='icon material-symbols-outlined'>add_circle</span>
+                                <span title='essa funcionalidade não faz parte do projeto do modulo 2'  class='icon material-symbols-outlined'>edit</span>
+                                <span title='essa funcionalidade não faz parte do projeto do modulo 2'  class='icon material-symbols-outlined'>delete</span>
                             <?php        
                                 }else{
                             ?>
-                                <span class='material-symbols-outlined'>edit</span>
+                                <span class='icon material-symbols-outlined'>edit</span>
                             <?php
                                 }
                             ?>
@@ -88,6 +95,9 @@ if(!isset($_SESSION['hash']) && empty($_SESSION['hash'])){
             
         </table>
 
+        </div>
+
+       
 
     </main>
     

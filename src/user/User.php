@@ -39,7 +39,7 @@ class User{
     }
     function getName(){
 
-        return $this->userName;
+        return $this->name;
     }
 
     function setName($name){

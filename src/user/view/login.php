@@ -3,28 +3,26 @@
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/User.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
 
-    if(isset($_SESSION['hash'])) {
-        // header("Location:". $_SERVER['DOCUMENT_ROOT'].'/index.php'); exit(); 
+    if(isset($_SESSION['hash'])) {         
         header("Location: http://localhost/digital-game-rental/index.php"); exit();   
     }
-
+    
     $userName = $_POST['username'] ?? null;
     $password = $_POST['password'] ?? null;
     
     if($userName && $password){ 
         $userDAO = new UserDAO();
         $userList = $userDAO->login($userName, $password);  
-        
+                
         if(count($userList) <= 0){
-            echo 'Usuario inexistente';
+            echo "<span class='msg'>Usuario ou senha incorreto.</span>";
 
         }else{            
             $_SESSION['hash'] = $userList[0]->getHash();
             $_SESSION['name'] = $userList[0]->getName();
             $_SESSION['type'] = $userList[0]->getType();
-            $_SESSION['username'] = $userList[0]->getUserName();
-            
-            // require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/index.php'; 
+            $_SESSION['username'] = $userList[0]->getUserName();           
+        
                                    
             header("Location: http://localhost/digital-game-rental/index.php"); exit(); 
         }
@@ -43,14 +41,14 @@
 <body>
     <main>
         <div class="container">
-            <form method="POST">
-                <h2>Login</h2>  
-                <label for="user-name">Usuário</label>
-                <input type="text" name='username' class='user-name' id='user-name'/>
+            <form class = 'form login-form' method="POST">
+                <h2 class='title form-title'>Login</h2>  
+                <label class='label' for="user-name">Usuário*</label >
+                <input type="text" name='username' class='input user-name-input' id='user-name' required/>
 
-                <label for="password">Senha</label>
-                <input type="password" name='password' class='password' />  
-                <button type='submit'>Enviar</button>              
+                <label  class='label'for="password">Senha*</label>
+                <input type="password" name='password' class='input password-input' required />  
+                <button  class="btn login-btn" type='submit'>Entrar</button>              
             </form>
         </div>
     </main>

@@ -1,0 +1,10 @@
+@import url('../../../index.css');
+
+.user-form, .profile-form{
+    width: 500px;
+}
+
+.login-form{
+    width: 400px;    
+}
+

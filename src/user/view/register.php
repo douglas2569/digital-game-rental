@@ -3,8 +3,9 @@
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
     require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/User.php';  
 
-    if(isset($_SESSION['hash']) && ($_SESSION['type'] != 'admin')) {
-        header("Location:". $_SERVER['DOCUMENT_ROOT'].'digital-game-rental/src/user/view/login.php'); exit();   
+    if(!isset($_SESSION['hash']) || ($_SESSION['type'] != 'admin')) {
+        header("Location: src/index.php"); 
+        exit();   
     }
 
     $userName = $_POST['username'] ?? null;
@@ -19,15 +20,12 @@
         $register = $userDAO->store('users', array($userName, $name, $password, $type, $hash));  
         
         if(empty($register) && !$register){
-            echo 'Preecha os campos corretamente!!';
+            
+            echo "<span class='msg'>Usuario ou senha incorreto.</span>";
         }else{                        
                                    
             header("Location: http://localhost/digital-game-rental/index.php"); exit(); 
-        }
-        
-    }else{
-        echo 'Preencha os campos corretamente.<br>';
-        
+        }        
     }
     
 ?>
@@ -43,23 +41,23 @@
 <body>
     <main>
         <div class="container">
-            <form method="POST">
-                <h2>Cadastrar usuario</h2> 
-                <label for="name">Nome</label>
-                <input type="text" name='name' class='name' id='name'/> 
-                <label for="user-name">Usuário</label>
-                <input type="text" name='username' class='user-name' id='user-name'/>
+            <form class="form user-form" method="POST">
+                <h2 class="title form-title">Cadastrar usuario</h2> 
+                <label class="label" for="name">Nome</label>
+                <input type="text" name='name' class='input' id='name' required/> 
+                <label class="label" for="user-name">Usuário</label>
+                <input type="text" name='username' class='input' id='user-name' required/>
 
-                <label for="password">Senha</label>
-                <input type="password" name='password' class='password' /> 
+                <label class="label" for="password">Senha</label>
+                <input type="password" name='password' class='input' required /> 
 
-                <label for="type">Type</label>
-                <select name="type" id="types">
+                <label class="label" for="type">Type</label>
+                <select class="select" name="type" id="types">
                     <option value="admin">Administrador</option>
                     <option value="editor">Editor</option>
                 </select>
 
-                <button type='submit'>Cadastrar</button>              
+                <button class="btn" type='submit'>Cadastrar</button>              
             </form>
         </div>
     </main>
