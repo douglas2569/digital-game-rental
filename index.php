@@ -1,8 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/config/config.php';
 require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/game/GameDAO.php';
-
-require_once 'src/user/UserDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
 
 if(!isset($_SESSION['hash']) && empty($_SESSION['hash'])){
     header("Location: src/user/view/login.php"); 

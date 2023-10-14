@@ -1,0 +1,19 @@
+@import url('../../../index.css');
+
+.xlg-img{
+    width: 400px;    
+}
+#game-manager-options{    
+    flex-direction: row;
+    gap: var(--sm-margin3);
+    margin-top: var(--md-margin3);
+}
+
+#table-body{
+    gap: var(--sm-margin3);
+
+}
+
+h1{
+    margin-top: var(--md-margin3);
+}

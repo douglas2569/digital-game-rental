@@ -10,9 +10,15 @@ class GameDAO extends DataBase{
         $this->conn = $this->conn();
     }
 
-    function show(){
-        $resulset = $this->retrieve('game'); 
+    function show($parameter=null){        
         $dataList = array();
+
+        if(!is_null($parameter)){
+            $resulset = $this->retrieve('games', array('id'), array($parameter)); 
+
+        }else{
+            $resulset = $this->retrieve('games');         
+        }
 
         if (is_null($resulset)) return $dataList;        
 
@@ -23,6 +29,7 @@ class GameDAO extends DataBase{
         }
 
         return $dataList;
+
     }
 
     function showJoin($keyword, $order){
@@ -65,6 +72,31 @@ class GameDAO extends DataBase{
 
         
     }
+
+    function showJoinByColumn($parameter=null){
+        $dataList = array();
+
+        if(empty($parameter)) return $dataList;
+
+        $query = "SELECT games.id, name, genders.gender, producers.producer, description, raing, cover FROM games JOIN genders  ON games.gender_fk = genders.id JOIN producers ON games.producer_fk = producers.id WHERE games.id = $parameter"; 
+
+        $statement = $this->conn->prepare($query);
+        $statement->execute();            
+        $resulset = $statement->get_result();                  
+
+        if (is_null($resulset)) return $dataList;          
+        
+        foreach($resulset as $row){                                                  
+            array_push($dataList, new Game($row['id'], $row['name'], 
+            $row['description'], $row['raing'], $row['cover'], 
+            $row['producer'], $row['gender']));       
+        }
+
+        return $dataList;     
+
+        
+    }
+    
 
 
 }
