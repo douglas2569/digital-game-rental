@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/user/UserDAO.php';
-// require_once '../UserDAO.php';
 
 class User{
     private $id;
@@ -49,7 +48,7 @@ class User{
     }
     
     function setPassword($password){
-        // $password = trim($password); 
+        $password = trim($password); 
 
         $this->password = $password;        
     }
@@ -70,7 +69,7 @@ class User{
     }
 
     function setHash($hash){
-        // $password = trim($password); 
+        $password = trim($password); 
 
         $this->hash = $hash;        
     }

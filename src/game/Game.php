@@ -1,6 +1,5 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/digital-game-rental/src/game/GameDAO.php';
-// require_once '../UserDAO.php';
 
 class Game{
     private $id;    
